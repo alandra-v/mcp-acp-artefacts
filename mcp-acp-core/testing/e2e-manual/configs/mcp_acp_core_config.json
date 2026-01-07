@@ -1,0 +1,24 @@
+{
+  "logging": {
+    "log_dir": "~/.mcp-acp-core",
+    "log_level": "DEBUG",
+    "include_payloads": true
+  },
+  "backend": {
+    "server_name": "cyanheads-filesystem-mcp-server",
+    "transport": null,
+    "stdio": {
+      "command": "node",
+      "args": [
+        "<workspace>/filesystem-mcp-server/dist/index.js"
+      ]
+    },
+    "http": {
+      "url": "http://localhost:3010/mcp",
+      "timeout": 30
+    }
+  },
+  "proxy": {
+    "name": "mcp-acp-core"
+  }
+}

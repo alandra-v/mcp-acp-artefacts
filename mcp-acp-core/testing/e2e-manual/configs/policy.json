@@ -1,0 +1,40 @@
+{
+  "version": "1",
+  "default_action": "deny",
+  "rules": [
+    {
+      "id": "allow-read-project",
+      "effect": "allow",
+      "conditions": {
+        "tool_name": "read*",
+        "path_pattern": "<test-workspace>/**"
+      }
+    },
+    {
+      "id": "hitl-write-project",
+      "effect": "hitl",
+      "conditions": {
+        "tool_name": "write*",
+        "path_pattern": "<workspace>/**"
+      }
+    },
+    {
+      "id": "deny-secrets-dir",
+      "effect": "deny",
+      "conditions": {
+        "path_pattern": "**/secrets/**"
+      }
+    },
+    {
+      "id": "deny-private-dir",
+      "effect": "deny",
+      "conditions": {
+        "path_pattern": "**/private/**"
+      }
+    }
+  ],
+  "hitl": {
+    "timeout_seconds": 30,
+    "default_on_timeout": "deny"
+  }
+}
