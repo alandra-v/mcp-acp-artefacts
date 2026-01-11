@@ -1,0 +1,15 @@
+{
+  "version": "1",
+  "default_action": "deny",
+  "rules": [
+    {"id": "allow-read-project", "effect": "allow", "conditions": {"tool_name": "read*", "path_pattern": "<test-workspace>/tmp-dir/**"}},
+    {"id": "hitl-write-project", "effect": "hitl", "conditions": {"tool_name": "write*", "path_pattern": "<test-workspace>/**"}},
+    {"id": "deny-secrets-dir", "effect": "deny", "conditions": {"path_pattern": "**/secrets/**"}},
+    {"id": "deny-private-dir", "effect": "deny", "conditions": {"path_pattern": "**/private/**"}},
+    {"id": "allow-copy-within-projects", "effect": "allow", "conditions": {"tool_name": "copy*", "source_path": "<test-workspace>/tmp-dir/projects/**", "dest_path": "<test-workspace>/tmp-dir/projects/**"}},
+    {"id": "deny-copy-to-secrets", "effect": "deny", "conditions": {"tool_name": ["copy*", "move*"], "dest_path": "**/secrets/**"}},
+    {"id": "deny-copy-from-secrets", "effect": "deny", "conditions": {"tool_name": ["copy*", "move*"], "source_path": "**/secrets/**"}},
+    {"id": "hitl-move-within-projects", "effect": "hitl", "conditions": {"tool_name": "move*", "source_path": "<test-workspace>/tmp-dir/projects/**", "dest_path": "<test-workspace>/tmp-dir/projects/**"}}
+  ],
+  "hitl": {"timeout_seconds": 30, "default_on_timeout": "deny"}
+}

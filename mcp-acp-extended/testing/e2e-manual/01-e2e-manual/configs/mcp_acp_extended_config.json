@@ -1,0 +1,32 @@
+{
+  "auth": {
+    "oidc": {
+      "issuer": "https://<auth0-tenant-url>/",
+      "client_id": "<auth-client-id>",
+      "audience": "https://mcp-acp",
+      "scopes": [
+        "openid",
+        "profile",
+        "email",
+        "offline_access"
+      ]
+    }
+  },
+  "logging": {
+    "log_dir": "~/.mcp-acp-extended",
+    "log_level": "INFO",
+    "include_payloads": true
+  },
+  "backend": {
+    "server_name": "cyanheads",
+    "transport": "stdio",
+    "stdio": {
+      "command": "node",
+    "args": ["<test-workspace>/filesystem-mcp-server/dist/index.js" ]
+    },
+    "http": null
+  },
+  "proxy": {
+    "name": "mcp-acp-extended"
+  }
+}

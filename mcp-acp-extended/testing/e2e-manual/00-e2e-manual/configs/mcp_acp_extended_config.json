@@ -1,0 +1,38 @@
+{
+  "auth": {
+    "oidc": {
+      "issuer": "https://<auth0-tenant-url>/",
+      "client_id": "<auth-client-id>",
+      "audience": "https://mcp-acp",
+      "scopes": [
+        "openid",
+        "profile",
+        "email",
+        "offline_access"
+      ]
+    },
+    "mtls": null
+  },
+  "logging": {
+    "log_dir": "$HOME/.mcp-acp-extended",
+    "log_level": "INFO",
+    "include_payloads": true
+  },
+  "backend": {
+    "server_name": "filesystem",
+    "transport": null,
+    "stdio": {
+      "command": "node",
+      "args": [
+        "<test-workspace>/filesystem-mcp-server/dist/index.js"
+      ]
+    },
+    "http": {
+      "url": "http://localhost:3010/mcp",
+      "timeout": 30
+    }
+  },
+  "proxy": {
+    "name": "mcp-acp-extended"
+  }
+}

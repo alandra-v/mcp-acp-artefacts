@@ -1,0 +1,99 @@
+{
+  "version": "1",
+  "default_action": "deny",
+  "rules": [
+    {
+      "id": "allow-read-tmp-dir",
+      "effect": "allow",
+      "description": "Allow reading from tmp-dir",
+      "conditions": {
+        "tool_name": "read*",
+        "path_pattern": "<test-workspace>/tmp-dir/**"
+      }
+    },
+    {
+      "id": "hitl-read-py-files",
+      "effect": "hitl",
+      "description": "HITL for Python files",
+      "conditions": {
+        "tool_name": "read*",
+        "extension": ".py"
+      }
+    },
+    {
+      "id": "hitl-write-project",
+      "effect": "hitl",
+      "description": "HITL for writes in Projects",
+      "conditions": {
+        "tool_name": "write*",
+        "path_pattern": "<test-workspace>/**"
+      }
+    },
+    {
+      "id": "allow-write-tmp-files",
+      "effect": "allow",
+      "description": "Allow writing .tmp files",
+      "conditions": {
+        "tool_name": "write*",
+        "extension": ".tmp"
+      }
+    },
+    {
+      "id": "hitl-delete-project",
+      "effect": "hitl",
+      "description": "HITL for deletes in Projects",
+      "conditions": {
+        "tool_name": ["delete*", "remove*"],
+        "path_pattern": "<test-workspace>/**"
+      }
+    },
+    {
+      "id": "deny-delete-py-files",
+      "effect": "deny",
+      "description": "Never delete Python files",
+      "conditions": {
+        "tool_name": ["delete*", "remove*"],
+        "extension": ".py"
+      }
+    },
+    {
+      "id": "deny-sensitive-dirs",
+      "effect": "deny",
+      "description": "Deny secrets and private dirs",
+      "conditions": {
+        "path_pattern": ["**/secrets/**", "**/private/**"]
+      }
+    },
+    {
+      "id": "allow-copy-within-projects",
+      "effect": "allow",
+      "conditions": {
+        "tool_name": "copy*",
+        "source_path": "<test-workspace>/tmp-dir/projects/**",
+        "dest_path": "<test-workspace>/tmp-dir/projects/**"
+      }
+    },
+    {
+      "id": "deny-copy-sensitive",
+      "effect": "deny",
+      "description": "Deny copy/move to sensitive dirs",
+      "conditions": {
+        "tool_name": ["copy*", "move*"],
+        "dest_path": ["**/secrets/**", "**/private/**"]
+      }
+    },
+    {
+      "id": "hitl-move-within-projects",
+      "effect": "hitl",
+      "conditions": {
+        "tool_name": "move*",
+        "source_path": "<test-workspace>/tmp-dir/projects/**",
+        "dest_path": "<test-workspace>/tmp-dir/projects/**"
+      }
+    }
+  ],
+  "hitl": {
+    "timeout_seconds": 30,
+    "default_on_timeout": "deny"
+  }
+}
