@@ -1,0 +1,107 @@
+{
+  "additionalProperties": false,
+  "description": "One configuration history log entry (logs/system/config_history.jsonl).\n\nCaptures the lifecycle of successful configuration versions:\n- initial load at startup\n- subsequent successful updates or reloads\n\nThe design follows general security logging and configuration\nmanagement guidance (e.g., OWASP logging recommendations,\nNIST SP 800-128 for security-focused configuration management,\nand NIST SP 800-92 / CIS Control 8 for audit log management),\nby recording when configuration changes occur, which version\nis active, and a snapshot sufficient to reconstruct the effective\nconfiguration during later analysis.",
+  "properties": {
+    "time": {
+      "format": "date-time",
+      "title": "Time",
+      "type": "string"
+    },
+    "event": {
+      "enum": [
+        "config_created",
+        "config_updated"
+      ],
+      "title": "Event",
+      "type": "string"
+    },
+    "message": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Message"
+    },
+    "config_version": {
+      "title": "Config Version",
+      "type": "string"
+    },
+    "previous_version": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Previous Version"
+    },
+    "change_type": {
+      "enum": [
+        "initial_load",
+        "manual_update",
+        "reload"
+      ],
+      "title": "Change Type",
+      "type": "string"
+    },
+    "component": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Component"
+    },
+    "config_path": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Config Path"
+    },
+    "checksum": {
+      "title": "Checksum",
+      "type": "string"
+    },
+    "snapshot_format": {
+      "default": "yaml",
+      "enum": [
+        "yaml",
+        "json"
+      ],
+      "title": "Snapshot Format",
+      "type": "string"
+    },
+    "snapshot": {
+      "title": "Snapshot",
+      "type": "string"
+    }
+  },
+  "required": [
+    "time",
+    "event",
+    "config_version",
+    "change_type",
+    "checksum",
+    "snapshot"
+  ],
+  "title": "ConfigHistoryEvent",
+  "type": "object"
+}

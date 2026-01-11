@@ -1,0 +1,214 @@
+{
+  "$defs": {
+    "ArgumentsSummary": {
+      "description": "Summary of MCP request arguments (without logging full sensitive payloads).",
+      "properties": {
+        "redacted": {
+          "default": true,
+          "title": "Redacted",
+          "type": "boolean"
+        },
+        "body_hash": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Body Hash"
+        },
+        "payload_length": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Payload Length"
+        }
+      },
+      "title": "ArgumentsSummary",
+      "type": "object"
+    },
+    "LatencyInfo": {
+      "description": "Latency measurements for this MCP operation.",
+      "properties": {
+        "latency_ms_total": {
+          "description": "Total end-to-end latency in ms",
+          "title": "Latency Ms Total",
+          "type": "number"
+        },
+        "latency_ms_client_to_proxy": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Latency Ms Client To Proxy"
+        },
+        "latency_ms_proxy_to_backend": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Latency Ms Proxy To Backend"
+        },
+        "latency_ms_backend_processing": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Latency Ms Backend Processing"
+        }
+      },
+      "required": [
+        "latency_ms_total"
+      ],
+      "title": "LatencyInfo",
+      "type": "object"
+    },
+    "SubjectIdentity": {
+      "description": "Identity of the human user, derived from the OIDC token.",
+      "properties": {
+        "subject_id": {
+          "title": "Subject Id",
+          "type": "string"
+        },
+        "subject_claims": {
+          "anyOf": [
+            {
+              "additionalProperties": {
+                "type": "string"
+              },
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Subject Claims"
+        }
+      },
+      "required": [
+        "subject_id"
+      ],
+      "title": "SubjectIdentity",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "One MCP operation log entry (audit/operations.jsonl).",
+  "properties": {
+    "time": {
+      "format": "date-time",
+      "title": "Time",
+      "type": "string"
+    },
+    "session_id": {
+      "title": "Session Id",
+      "type": "string"
+    },
+    "request_id": {
+      "title": "Request Id",
+      "type": "string"
+    },
+    "method": {
+      "title": "Method",
+      "type": "string"
+    },
+    "status": {
+      "title": "Status",
+      "type": "string"
+    },
+    "message": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Message"
+    },
+    "subject": {
+      "$ref": "#/$defs/SubjectIdentity"
+    },
+    "backend_id": {
+      "title": "Backend Id",
+      "type": "string"
+    },
+    "tool_name": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Tool Name"
+    },
+    "arguments_summary": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ArgumentsSummary"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "config_version": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Config Version"
+    },
+    "latency": {
+      "$ref": "#/$defs/LatencyInfo"
+    }
+  },
+  "required": [
+    "time",
+    "session_id",
+    "request_id",
+    "method",
+    "status",
+    "subject",
+    "backend_id",
+    "latency"
+  ],
+  "title": "OperationEvent",
+  "type": "object"
+}
