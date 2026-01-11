@@ -1,6 +1,6 @@
-# MCP-ACP Artifacts Repository
+# MCP-ACP Artefacts Repository
 
-This repository contains non-code artifacts (test evidence, logs, reports, and supporting documentation) for the **mcp-acp** project.
+This repository contains non-code artefacts (test evidence, logs, reports, and supporting documentation) for the **mcp-acp** project.
 
 **Main source repository (Stage 1):**  
 https://github.com/alandra-v/mcp-acp-core
@@ -14,13 +14,13 @@ It is intentionally separated from the codebase to preserve test evidence, audit
 
 ---
 
-## Stage 1 Artifacts
+## Stage 1 Artefacts
 
-All Stage 1 artifacts are located under the following structure:
+All Stage 1 artefacts are located under the following structure:
 
 ---
 
-## Artifacts Folder Structure
+## Artefacts Folder Structure
 
 ```text
 mcp-acp-core/
@@ -39,10 +39,10 @@ mcp-acp-core/
   Architecture, workflow, and sequence diagrams for the project.
 
 - **testing/unit/**  
-  Artifacts produced by automated unit testing (e.g. coverage reports).
+  Artefacts produced by automated unit testing (e.g. coverage reports).
 
 - **testing/e2e-manual/**  
-  Manual end-to-end and acceptance testing artifacts.
+  Manual end-to-end and acceptance testing artefacts.
 
   - **configs/**  
     Configuration and policy files used during manual testing.
