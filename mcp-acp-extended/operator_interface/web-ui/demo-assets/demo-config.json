@@ -1,0 +1,39 @@
+{
+  "auth": {
+    "oidc": {
+      "issuer": "https://<auth0-tenant-url>/",
+      "client_id": "<auth-client-id>",
+      "audience": "https://mcp-acp",
+      "scopes": [
+        "openid",
+        "profile",
+        "email",
+        "offline_access"
+      ]
+    },
+    "mtls": null
+  },
+  "logging": {
+    "log_dir": "~/.mcp-acp-extended",
+    "log_level": "INFO",
+    "include_payloads": true
+  },
+  "backend": {
+    "server_name": "cyanheads-filesystem-server",
+    "transport": "streamablehttp",
+    "stdio": null,
+    "http": {
+      "url": "http://localhost:3010/mcp",
+      "timeout": 30
+    }
+  },
+  "proxy": {
+    "name": "mcp-acp-extended"
+  },
+  "hitl": {
+    "timeout_seconds": 60,
+    "default_on_timeout": "deny",
+    "approval_ttl_seconds": 600,
+    "cache_side_effects": ["fs_read", "fs_write"]
+  }
+}

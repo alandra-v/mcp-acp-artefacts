@@ -1,0 +1,93 @@
+{
+  "version": "1",
+  "default_action": "deny",
+  "rules": [
+    {
+      "id": "allow-read-projects",
+      "description": "Allow reading project source files",
+      "effect": "allow",
+      "conditions": {
+        "path_pattern": "/tmp/mcp-demo-workspace/projects/**/src/**",
+        "operations": ["read"]
+      }
+    },
+    {
+      "id": "allow-read-test-files",
+      "description": "Allow reading test files without approval",
+      "effect": "allow",
+      "conditions": {
+        "path_pattern": "/tmp/mcp-demo-workspace/projects/**/tests/**",
+        "operations": ["read"]
+      }
+    },
+    {
+      "id": "hitl-write-projects",
+      "description": "Require approval to modify project files",
+      "effect": "hitl",
+      "conditions": {
+        "path_pattern": "/tmp/mcp-demo-workspace/projects/**",
+        "operations": ["write"]
+      }
+    },
+    {
+      "id": "deny-secrets-always",
+      "description": "Block all access to secrets directory",
+      "effect": "deny",
+      "conditions": {
+        "path_pattern": "/tmp/mcp-demo-workspace/secrets/**"
+      }
+    },
+    {
+      "id": "deny-env-files",
+      "description": "Block access to environment files containing credentials",
+      "effect": "deny",
+      "conditions": {
+        "path_pattern": "**/.env*"
+      }
+    },
+    {
+      "id": "hitl-read-documents",
+      "description": "Require approval to read sensitive documents",
+      "effect": "hitl",
+      "conditions": {
+        "path_pattern": "/tmp/mcp-demo-workspace/documents/**",
+        "operations": ["read"]
+      }
+    },
+    {
+      "id": "deny-write-documents",
+      "description": "Block modifications to official documents",
+      "effect": "deny",
+      "conditions": {
+        "path_pattern": "/tmp/mcp-demo-workspace/documents/**",
+        "operations": ["write", "delete"]
+      }
+    },
+    {
+      "id": "hitl-delete-any",
+      "description": "All delete operations require human approval",
+      "effect": "hitl",
+      "conditions": {
+        "operations": ["delete"]
+      }
+    },
+    {
+      "id": "allow-read-config-json",
+      "description": "Allow reading JSON config files in projects",
+      "effect": "allow",
+      "conditions": {
+        "path_pattern": "/tmp/mcp-demo-workspace/projects/**/config/**",
+        "extension": ".json",
+        "operations": ["read"]
+      }
+    },
+    {
+      "id": "deny-backup-access",
+      "description": "Protect backup files from any access",
+      "effect": "deny",
+      "conditions": {
+        "path_pattern": "/tmp/mcp-demo-workspace/backups/**"
+      }
+    }
+  ]
+}
