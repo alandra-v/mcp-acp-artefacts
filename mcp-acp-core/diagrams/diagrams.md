@@ -184,39 +184,8 @@
     └── emergency_audit.jsonl           # Last-resort audit fallback
 ```
 
-## 5. Implementation Timeline
 
-```
-Phase 1                Phase 2                Phase 3                Phase 4
-Foundation             Logging                Config & CLI           Audit & HTTP
-─────────────────────────────────────────────────────────────────────────────────▶
-Commits 1-5            Commits 6-14           Commits 15-26          Commits 27-41
-
-• pyproject.toml       • client_wire.jsonl    • Pydantic models      • operations.jsonl
-• FastMCP proxy        • backend_wire.jsonl   • Click CLI            • HTTP transport
-• STDIO transport      • correlation IDs      • init/start/config    • First unit tests
-                       • system logger        • config history
-
-     ╔════════════════════════════════════════════════════════════════════╗
-     ║  PIVOT: Telemetry expanded from 2 files to full audit structure   ║
-     ╚════════════════════════════════════════════════════════════════════╝
-
-Phase 5                Phase 6                Phase 7
-Identity & Policy      PEP & HITL             Hardening
-─────────────────────────────────────────────────────────────────────────────────▶
-Commits 42-52          Commits 53-59          Commits 60-81
-
-• ABAC context         • Enforcement MW       • Fail-closed audit
-• Policy engine        • macOS dialogs        • Inode verification
-• HITL>DENY>ALLOW      • decisions.jsonl      • Documentation
-
-     ╔═══════════════════════════╗    ╔═══════════════════════════════════╗
-     ║ PIVOT: First-match-wins   ║    ║ PIVOT: stdin → osascript dialogs ║
-     ║ → combining algorithm     ║    ║ (no terminal from Claude Desktop)║
-     ╚═══════════════════════════╝    ╚═══════════════════════════════════╝
-```
-
-## 6. ABAC Decision Context Structure
+## 5. ABAC Decision Context Structure
 
 ```
 DecisionContext
@@ -246,7 +215,7 @@ DecisionContext
     └── mcp_client_name: "claude-desktop"
 ```
 
-## 7. HITL Dialog (macOS)
+## 6. HITL Dialog (macOS)
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
