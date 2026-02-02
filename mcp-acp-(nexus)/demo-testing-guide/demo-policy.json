@@ -1,0 +1,263 @@
+{
+  "version": "1",
+  "default_action": "deny",
+  "rules": [
+
+    {
+      "id": "allow-navigation",
+      "description": "Directory listing, searching, and file info are always allowed. Nobody wants to approve every ls command.",
+      "effect": "allow",
+      "conditions": {
+        "tool_name": ["list*", "search*", "get_file_info", "directory_tree", "list_allowed*"]
+      }
+    },
+
+    {
+      "id": "deny-env-files",
+      "description": "Block .env files everywhere regardless of directory. These contain credentials even in dev.",
+      "effect": "deny",
+      "conditions": {
+        "path_pattern": "**/.env*"
+      }
+    },
+    {
+      "id": "deny-secrets",
+      "description": "Hard block on secrets directory. No reads, no writes, no exceptions.",
+      "effect": "deny",
+      "conditions": {
+        "path_pattern": "/tmp/mcp-demo-workspace/secrets/**"
+      }
+    },
+    {
+      "id": "deny-backups",
+      "description": "Database backups contain password hashes and PII. Hard block.",
+      "effect": "deny",
+      "conditions": {
+        "path_pattern": "/tmp/mcp-demo-workspace/backups/**"
+      }
+    },
+    {
+      "id": "deny-hr-records",
+      "description": "HR data (salaries, performance reviews, contracts) is off limits to AI entirely.",
+      "effect": "deny",
+      "conditions": {
+        "path_pattern": "/tmp/mcp-demo-workspace/documents/hr-records/**"
+      }
+    },
+    {
+      "id": "deny-key-files-by-extension",
+      "description": "Block key/cert files by extension everywhere, even in tmp/. Defense in depth.",
+      "effect": "deny",
+      "conditions": {
+        "extension": [".key", ".pem", ".p12", ".pfx"]
+      }
+    },
+
+    {
+      "id": "allow-read-project-src",
+      "description": "Source code is freely readable. No secrets should live in src/.",
+      "effect": "allow",
+      "conditions": {
+        "path_pattern": "/tmp/mcp-demo-workspace/projects/**/src/**",
+        "operations": ["read"]
+      }
+    },
+    {
+      "id": "allow-read-project-tests",
+      "description": "Test files are freely readable.",
+      "effect": "allow",
+      "conditions": {
+        "path_pattern": "/tmp/mcp-demo-workspace/projects/**/tests/**",
+        "operations": ["read"]
+      }
+    },
+    {
+      "id": "allow-read-project-config-json",
+      "description": "JSON configs are safe to read — they contain feature flags, themes, non-secret settings.",
+      "effect": "allow",
+      "conditions": {
+        "path_pattern": "/tmp/mcp-demo-workspace/projects/**/config/**",
+        "extension": ".json",
+        "operations": ["read"]
+      }
+    },
+    {
+      "id": "hitl-read-project-config-yaml",
+      "description": "YAML configs often contain DB connection strings, hostnames, credentials. Require approval.",
+      "effect": "hitl",
+      "conditions": {
+        "path_pattern": "/tmp/mcp-demo-workspace/projects/**/config/**",
+        "extension": ".yaml",
+        "operations": ["read"]
+      },
+      "cache_side_effects": []
+    },
+
+    {
+      "id": "hitl-write-project-src",
+      "description": "Editing source code requires approval. Cacheable: once you approve edits to a file, subsequent edits to that same file auto-approve for 10 min.",
+      "effect": "hitl",
+      "conditions": {
+        "path_pattern": "/tmp/mcp-demo-workspace/projects/**/src/**",
+        "operations": ["write"]
+      },
+      "cache_side_effects": ["fs_write"]
+    },
+    {
+      "id": "hitl-write-project-config",
+      "description": "Config changes require approval. NOT cacheable: every config modification should be individually reviewed because config changes affect runtime behavior.",
+      "effect": "hitl",
+      "conditions": {
+        "path_pattern": "/tmp/mcp-demo-workspace/projects/**/config/**",
+        "operations": ["write"]
+      },
+      "cache_side_effects": []
+    },
+
+    {
+      "id": "allow-read-data",
+      "description": "Analyst data (CSVs, JSON fixtures) is freely readable for analysis tasks.",
+      "effect": "allow",
+      "conditions": {
+        "path_pattern": "/tmp/mcp-demo-workspace/data/**",
+        "operations": ["read"]
+      }
+    },
+    {
+      "id": "deny-write-data",
+      "description": "Source data integrity: AI should never modify raw data files. Write reports to reports/ instead.",
+      "effect": "deny",
+      "conditions": {
+        "path_pattern": "/tmp/mcp-demo-workspace/data/**",
+        "operations": ["write"]
+      }
+    },
+
+    {
+      "id": "allow-read-docs",
+      "description": "Project documentation (ADRs, meeting notes, changelogs) is freely readable.",
+      "effect": "allow",
+      "conditions": {
+        "path_pattern": "/tmp/mcp-demo-workspace/docs/**",
+        "operations": ["read"]
+      }
+    },
+    {
+      "id": "hitl-write-docs",
+      "description": "Writing documentation requires approval. Cacheable: approve once and Claude can generate multiple doc files in a session.",
+      "effect": "hitl",
+      "conditions": {
+        "path_pattern": "/tmp/mcp-demo-workspace/docs/**",
+        "operations": ["write"]
+      },
+      "cache_side_effects": ["fs_write"]
+    },
+
+    {
+      "id": "allow-reports",
+      "description": "Reports directory is an output sink. Fully unrestricted — Claude can read and write freely here.",
+      "effect": "allow",
+      "conditions": {
+        "path_pattern": "/tmp/mcp-demo-workspace/reports/**"
+      }
+    },
+
+    {
+      "id": "allow-read-logs",
+      "description": "Application logs are freely readable for analysis and debugging.",
+      "effect": "allow",
+      "conditions": {
+        "path_pattern": "/tmp/mcp-demo-workspace/logs/**",
+        "operations": ["read"]
+      }
+    },
+    {
+      "id": "deny-write-logs",
+      "description": "Log files are append-only evidence. AI must never modify or delete logs.",
+      "effect": "deny",
+      "conditions": {
+        "path_pattern": "/tmp/mcp-demo-workspace/logs/**",
+        "operations": ["write", "delete"]
+      }
+    },
+
+    {
+      "id": "hitl-read-financial",
+      "description": "Financial documents require approval to read. Cacheable: an analyst reviewing Q4 numbers will likely re-read the same doc in one session.",
+      "effect": "hitl",
+      "conditions": {
+        "path_pattern": "/tmp/mcp-demo-workspace/documents/financial/**",
+        "operations": ["read"]
+      },
+      "cache_side_effects": ["fs_read"]
+    },
+    {
+      "id": "deny-write-financial",
+      "description": "Financial records are immutable. No modifications allowed.",
+      "effect": "deny",
+      "conditions": {
+        "path_pattern": "/tmp/mcp-demo-workspace/documents/financial/**",
+        "operations": ["write", "delete"]
+      }
+    },
+
+    {
+      "id": "hitl-read-contracts",
+      "description": "Contracts require per-file approval. NOT cacheable: each contract is a distinct legal document and the user should consciously approve access to each one.",
+      "effect": "hitl",
+      "conditions": {
+        "path_pattern": "/tmp/mcp-demo-workspace/documents/contracts/**",
+        "operations": ["read"]
+      },
+      "cache_side_effects": []
+    },
+    {
+      "id": "deny-write-contracts",
+      "description": "Legal documents are immutable. No modifications allowed.",
+      "effect": "deny",
+      "conditions": {
+        "path_pattern": "/tmp/mcp-demo-workspace/documents/contracts/**",
+        "operations": ["write", "delete"]
+      }
+    },
+
+    {
+      "id": "allow-tmp",
+      "description": "Temp workspace is fully unrestricted scratch space.",
+      "effect": "allow",
+      "conditions": {
+        "path_pattern": "/tmp/mcp-demo-workspace/tmp/**"
+      }
+    },
+
+    {
+      "id": "hitl-move-any",
+      "description": "Moving/renaming files is a structural change. Always requires approval, never cached.",
+      "effect": "hitl",
+      "conditions": {
+        "tool_name": "move_file"
+      },
+      "cache_side_effects": []
+    },
+    {
+      "id": "hitl-delete-any",
+      "description": "All deletes require approval. Never cached — each deletion is a conscious decision.",
+      "effect": "hitl",
+      "conditions": {
+        "operations": ["delete"]
+      },
+      "cache_side_effects": []
+    },
+
+    {
+      "id": "allow-read-project-root-files",
+      "description": "Allow reading package.json and other root-level project files.",
+      "effect": "allow",
+      "conditions": {
+        "path_pattern": "/tmp/mcp-demo-workspace/projects/**",
+        "extension": ".json",
+        "operations": ["read"]
+      }
+    }
+  ]
+}

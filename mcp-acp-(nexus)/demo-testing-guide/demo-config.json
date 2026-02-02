@@ -1,0 +1,17 @@
+{
+  "backend": {
+    "server_name": "filesystem-server",
+    "transport": "stdio",
+    "stdio": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-filesystem", "/tmp/mcp-demo-workspace"]
+    }
+  },
+  "hitl": {
+    "timeout_seconds": 60,
+    "default_on_timeout": "deny",
+    "approval_ttl_seconds": 600
+  },
+  "log_level": "INFO",
+  "include_payloads": true
+}
