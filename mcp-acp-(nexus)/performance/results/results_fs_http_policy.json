@@ -1,0 +1,45 @@
+[
+  {
+    "scenario": "http",
+    "backend_url": "http://localhost:3010/mcp",
+    "proxy_name": "cyanheads",
+    "tool_name": "read_file",
+    "tool_args": {
+      "path": "/tmp/mcp-acp-test.txt"
+    },
+    "warmup": 10,
+    "runs": 100,
+    "direct": {
+      "discovery": {
+        "median_ms": 3.08,
+        "stdev_ms": 0.37,
+        "min_ms": 2.54,
+        "max_ms": 4.16,
+        "samples": 100
+      },
+      "tool_call": {
+        "median_ms": 3.24,
+        "stdev_ms": 1.29,
+        "min_ms": 2.37,
+        "max_ms": 10.87,
+        "samples": 100
+      }
+    },
+    "proxied": {
+      "discovery": {
+        "median_ms": 37.18,
+        "stdev_ms": 3.4,
+        "min_ms": 33.64,
+        "max_ms": 54.23,
+        "samples": 100
+      },
+      "tool_call": {
+        "median_ms": 129.78,
+        "stdev_ms": 8.41,
+        "min_ms": 123.1,
+        "max_ms": 166.75,
+        "samples": 100
+      }
+    }
+  }
+]

@@ -1,0 +1,45 @@
+[
+  {
+    "scenario": "stdio",
+    "backend_cmd": ".venv/bin/python scripts/echo_server.py",
+    "proxy_name": "echo-stdio",
+    "tool_name": "echo",
+    "tool_args": {
+      "message": "test"
+    },
+    "warmup": 10,
+    "runs": 100,
+    "direct": {
+      "discovery": {
+        "median_ms": 0.72,
+        "stdev_ms": 0.05,
+        "min_ms": 0.67,
+        "max_ms": 1.07,
+        "samples": 100
+      },
+      "tool_call": {
+        "median_ms": 1.42,
+        "stdev_ms": 0.05,
+        "min_ms": 1.37,
+        "max_ms": 1.77,
+        "samples": 100
+      }
+    },
+    "proxied": {
+      "discovery": {
+        "median_ms": 7.53,
+        "stdev_ms": 0.85,
+        "min_ms": 6.06,
+        "max_ms": 10.95,
+        "samples": 100
+      },
+      "tool_call": {
+        "median_ms": 16.38,
+        "stdev_ms": 3.82,
+        "min_ms": 13.65,
+        "max_ms": 46.36,
+        "samples": 100
+      }
+    }
+  }
+]

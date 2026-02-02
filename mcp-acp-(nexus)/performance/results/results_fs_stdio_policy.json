@@ -1,0 +1,45 @@
+[
+  {
+    "scenario": "stdio",
+    "backend_cmd": "node <test-workspace>/filesystem-mcp-server/dist/index.js",
+    "proxy_name": "cyanheads",
+    "tool_name": "read_file",
+    "tool_args": {
+      "path": "/tmp/mcp-acp-test.txt"
+    },
+    "warmup": 10,
+    "runs": 100,
+    "direct": {
+      "discovery": {
+        "median_ms": 0.45,
+        "stdev_ms": 0.07,
+        "min_ms": 0.41,
+        "max_ms": 0.98,
+        "samples": 100
+      },
+      "tool_call": {
+        "median_ms": 0.37,
+        "stdev_ms": 0.09,
+        "min_ms": 0.33,
+        "max_ms": 1.13,
+        "samples": 100
+      }
+    },
+    "proxied": {
+      "discovery": {
+        "median_ms": 13.18,
+        "stdev_ms": 4.22,
+        "min_ms": 6.09,
+        "max_ms": 25.64,
+        "samples": 100
+      },
+      "tool_call": {
+        "median_ms": 16.75,
+        "stdev_ms": 4.9,
+        "min_ms": 8.88,
+        "max_ms": 31.66,
+        "samples": 100
+      }
+    }
+  }
+]

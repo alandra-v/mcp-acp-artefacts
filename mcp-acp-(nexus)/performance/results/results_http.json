@@ -1,0 +1,45 @@
+[
+  {
+    "scenario": "http",
+    "backend_url": "http://127.0.0.1:8766/mcp",
+    "proxy_name": "echo-http",
+    "tool_name": "echo",
+    "tool_args": {
+      "message": "test"
+    },
+    "warmup": 10,
+    "runs": 100,
+    "direct": {
+      "discovery": {
+        "median_ms": 2.1,
+        "stdev_ms": 0.18,
+        "min_ms": 1.97,
+        "max_ms": 2.8,
+        "samples": 100
+      },
+      "tool_call": {
+        "median_ms": 3.0,
+        "stdev_ms": 0.43,
+        "min_ms": 2.77,
+        "max_ms": 5.11,
+        "samples": 100
+      }
+    },
+    "proxied": {
+      "discovery": {
+        "median_ms": 31.7,
+        "stdev_ms": 5.69,
+        "min_ms": 29.12,
+        "max_ms": 85.53,
+        "samples": 100
+      },
+      "tool_call": {
+        "median_ms": 114.17,
+        "stdev_ms": 6.79,
+        "min_ms": 107.38,
+        "max_ms": 170.45,
+        "samples": 100
+      }
+    }
+  }
+]
