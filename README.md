@@ -51,7 +51,7 @@ mcp-acp-(nexus)/                       # Stage 3 artefacts
 ├─ diagrams/
 ├─ operator-interface/
 │  ├─ cli/
-│  └─ web-ui/
+│  └─ web-ui/demo-screenshots
 ├─ performance/
 │  ├─ documentation/
 │  ├─ results/
