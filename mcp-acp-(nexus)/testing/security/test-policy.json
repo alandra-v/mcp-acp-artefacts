@@ -1,0 +1,61 @@
+{
+  "version": "1",
+  "default_action": "deny",
+  "rules": [
+    {
+      "id": "allow-read-safe",
+      "effect": "allow",
+      "description": "Allow reads inside sandbox",
+      "conditions": {
+        "tool_name": [
+          "read_file",
+          "get_file_info",
+          "list_directory",
+          "search_files",
+          "directory_tree",
+          "list_allowed_directories",
+          "read_dataset"
+        ],
+        "path_pattern": "/tmp/test-sandbox/**"
+      }
+    },
+    {
+      "id": "hitl-writes",
+      "effect": "hitl",
+      "description": "HITL approval for writes and edits",
+      "conditions": {
+        "tool_name": ["write_file", "edit_file", "create_directory", "copy_file"],
+        "path_pattern": "/tmp/test-sandbox/**"
+      }
+    },
+    {
+      "id": "hitl-destructive",
+      "effect": "hitl",
+      "description": "HITL approval for delete and move",
+      "conditions": {
+        "tool_name": ["delete_file", "delete_directory", "move_file"],
+        "path_pattern": "/tmp/test-sandbox/**"
+      }
+    },
+    {
+      "id": "deny-sensitive",
+      "effect": "deny",
+      "description": "Block sensitive system paths",
+      "conditions": {
+        "path_pattern": [
+          "/etc/**", "/root/**", "**/.ssh/**", "**/.aws/**",
+          "**/.gnupg/**", "**/.config/**", "/var/log/**",
+          "/proc/**", "/home/**"
+        ]
+      }
+    },
+    {
+      "id": "deny-credential-extensions",
+      "effect": "deny",
+      "description": "Block credential file types",
+      "conditions": {
+        "extension": [".key", ".pem", ".env", ".credentials"]
+      }
+    }
+  ]
+}
