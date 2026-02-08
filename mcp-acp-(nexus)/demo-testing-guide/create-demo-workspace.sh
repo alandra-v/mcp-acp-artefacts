@@ -161,7 +161,7 @@ database:
   port: 5432
   name: internal_api
   user: svc_internal_api
-  password: "prod-db-password-rotated-2025-01"
+  password: "prod-db-password-rotated-2026-01"
   pool_size: 10
   ssl_mode: require
 EOF
@@ -177,39 +177,39 @@ EOF
 # Data - analyst files (read-only source data)
 # ============================================================
 
-cat > "$WORKSPACE/data/analytics/error_codes_jan2025.csv" << 'EOF'
+cat > "$WORKSPACE/data/analytics/error_codes_jan2026.csv" << 'EOF'
 date,error_code,count,service,severity
-2025-01-01,ERR_TIMEOUT,142,api-gateway,high
-2025-01-01,ERR_AUTH_FAILED,23,auth-service,medium
-2025-01-01,ERR_DB_CONN,8,user-service,critical
-2025-01-02,ERR_TIMEOUT,156,api-gateway,high
-2025-01-02,ERR_RATE_LIMIT,89,api-gateway,low
-2025-01-02,ERR_AUTH_FAILED,31,auth-service,medium
-2025-01-03,ERR_TIMEOUT,98,api-gateway,high
-2025-01-03,ERR_DB_CONN,12,user-service,critical
-2025-01-03,ERR_PARSE,45,data-pipeline,medium
-2025-01-04,ERR_TIMEOUT,201,api-gateway,high
-2025-01-04,ERR_OOM,3,batch-processor,critical
-2025-01-05,ERR_TIMEOUT,167,api-gateway,high
-2025-01-05,ERR_AUTH_FAILED,18,auth-service,medium
+2026-01-01,ERR_TIMEOUT,142,api-gateway,high
+2026-01-01,ERR_AUTH_FAILED,23,auth-service,medium
+2026-01-01,ERR_DB_CONN,8,user-service,critical
+2026-01-02,ERR_TIMEOUT,156,api-gateway,high
+2026-01-02,ERR_RATE_LIMIT,89,api-gateway,low
+2026-01-02,ERR_AUTH_FAILED,31,auth-service,medium
+2026-01-03,ERR_TIMEOUT,98,api-gateway,high
+2026-01-03,ERR_DB_CONN,12,user-service,critical
+2026-01-03,ERR_PARSE,45,data-pipeline,medium
+2026-01-04,ERR_TIMEOUT,201,api-gateway,high
+2026-01-04,ERR_OOM,3,batch-processor,critical
+2026-01-05,ERR_TIMEOUT,167,api-gateway,high
+2026-01-05,ERR_AUTH_FAILED,18,auth-service,medium
 EOF
 
-cat > "$WORKSPACE/data/analytics/api_latency_jan2025.csv" << 'EOF'
+cat > "$WORKSPACE/data/analytics/api_latency_jan2026.csv" << 'EOF'
 date,endpoint,p50_ms,p95_ms,p99_ms,requests
-2025-01-01,/api/users,12,45,120,45230
-2025-01-01,/api/orders,34,89,340,12450
-2025-01-01,/api/auth/login,8,22,55,8900
-2025-01-02,/api/users,14,52,150,47100
-2025-01-02,/api/orders,31,78,290,13200
-2025-01-03,/api/users,11,41,110,44800
-2025-01-03,/api/orders,38,95,380,11900
+2026-01-01,/api/users,12,45,120,45230
+2026-01-01,/api/orders,34,89,340,12450
+2026-01-01,/api/auth/login,8,22,55,8900
+2026-01-02,/api/users,14,52,150,47100
+2026-01-02,/api/orders,31,78,290,13200
+2026-01-03,/api/users,11,41,110,44800
+2026-01-03,/api/orders,38,95,380,11900
 EOF
 
 cat > "$WORKSPACE/data/fixtures/users.json" << 'EOF'
 [
-  {"id": "usr_001", "name": "Alice Chen", "email": "alice@example.com", "role": "admin", "created_at": "2024-03-15"},
-  {"id": "usr_002", "name": "Bob Martinez", "email": "bob@example.com", "role": "editor", "created_at": "2024-06-01"},
-  {"id": "usr_003", "name": "Carol Park", "email": "carol@example.com", "role": "viewer", "created_at": "2024-09-20"}
+  {"id": "usr_001", "name": "Alice Chen", "email": "alice@example.com", "role": "admin", "created_at": "2025-03-15"},
+  {"id": "usr_002", "name": "Bob Martinez", "email": "bob@example.com", "role": "editor", "created_at": "2025-06-01"},
+  {"id": "usr_003", "name": "Carol Park", "email": "carol@example.com", "role": "viewer", "created_at": "2025-09-20"}
 ]
 EOF
 
@@ -269,8 +269,8 @@ Migrate to JWT with OIDC provider (Auth0). Short-lived access tokens (15 min) wi
 - Enables zero-trust architecture for internal services
 EOF
 
-cat > "$WORKSPACE/docs/meeting-notes/2025-01-15-sprint-planning.md" << 'EOF'
-# Sprint Planning - January 15, 2025
+cat > "$WORKSPACE/docs/meeting-notes/2026-01-15-sprint-planning.md" << 'EOF'
+# Sprint Planning - January 15, 2026
 
 ## Attendees
 Alice, Bob, Carol, Dave
@@ -287,8 +287,8 @@ Alice, Bob, Carol, Dave
 - Dave: Load testing for new auth flow (3 points)
 EOF
 
-cat > "$WORKSPACE/docs/meeting-notes/2025-01-22-architecture-review.md" << 'EOF'
-# Architecture Review - January 22, 2025
+cat > "$WORKSPACE/docs/meeting-notes/2026-01-22-architecture-review.md" << 'EOF'
+# Architecture Review - January 22, 2026
 
 ## Attendees
 Alice, Carol, Dave, VP Engineering
@@ -297,7 +297,7 @@ Alice, Carol, Dave, VP Engineering
 
 ### Database Migration Strategy
 - Decided: Move from single PostgreSQL to read replicas
-- Timeline: Q2 2025
+- Timeline: Q2 2026
 - Need ADR documenting the decision
 
 ### API Rate Limiting
@@ -319,7 +319,7 @@ EOF
 cat > "$WORKSPACE/docs/CHANGELOG.md" << 'EOF'
 # Changelog
 
-## [2.1.0] - 2025-01-20
+## [2.1.0] - 2026-01-20
 ### Added
 - Per-tenant rate limiting in api-gateway
 - Health check endpoint for all services
@@ -328,7 +328,7 @@ cat > "$WORKSPACE/docs/CHANGELOG.md" << 'EOF'
 - Connection timeout in external API calls
 - Memory leak in batch processor
 
-## [2.0.0] - 2025-01-05
+## [2.0.0] - 2026-01-05
 ### Changed
 - Migrated auth from sessions to JWT
 - Updated all service middleware for token validation
@@ -374,7 +374,7 @@ MASTER SERVICE AGREEMENT
 ========================
 CloudProvider Inc. and ACME Corp
 
-Effective Date: January 1, 2025
+Effective Date: January 1, 2026
 Term: 3 years with auto-renewal
 
 Services: Cloud infrastructure, compute, storage
@@ -395,8 +395,8 @@ Scope: Product roadmap, technical specifications, customer data
 STRICTLY CONFIDENTIAL
 EOF
 
-cat > "$WORKSPACE/documents/financial/quarterly_report_q4_2024.txt" << 'EOF'
-QUARTERLY FINANCIAL REPORT - Q4 2024
+cat > "$WORKSPACE/documents/financial/quarterly_report_q4_2025.txt" << 'EOF'
+QUARTERLY FINANCIAL REPORT - Q4 2025
 ====================================
 
 Revenue: $12.5M (+15% YoY)
@@ -411,8 +411,8 @@ Key Metrics:
 CONFIDENTIAL - Board Distribution Only
 EOF
 
-cat > "$WORKSPACE/documents/financial/budget_2025.txt" << 'EOF'
-2025 ANNUAL BUDGET
+cat > "$WORKSPACE/documents/financial/budget_2026.txt" << 'EOF'
+2026 ANNUAL BUDGET
 ==================
 
 Engineering: $15M
@@ -436,8 +436,8 @@ Equity: 0.05%
 HIGHLY CONFIDENTIAL - HR Access Only
 EOF
 
-cat > "$WORKSPACE/documents/hr-records/perf_review_2024.txt" << 'EOF'
-PERFORMANCE REVIEW 2024
+cat > "$WORKSPACE/documents/hr-records/perf_review_2025.txt" << 'EOF'
+PERFORMANCE REVIEW 2025
 =======================
 Employee: John Smith
 Manager: Jane Doe
@@ -452,7 +452,7 @@ CONFIDENTIAL
 EOF
 
 cat > "$WORKSPACE/documents/hr-records/salary_bands.txt" << 'EOF'
-ENGINEERING SALARY BANDS 2025
+ENGINEERING SALARY BANDS 2026
 =============================
 
 Junior Engineer: $90,000 - $120,000
@@ -520,9 +520,9 @@ EOF
 # Backups
 # ============================================================
 
-cat > "$WORKSPACE/backups/users_backup_20250110.json" << 'EOF'
+cat > "$WORKSPACE/backups/users_backup_20260110.json" << 'EOF'
 {
-  "backup_date": "2025-01-10T00:00:00Z",
+  "backup_date": "2026-01-10T00:00:00Z",
   "users": [
     {"id": 1, "email": "admin@example.com", "password_hash": "$2b$12$FakeHashedPassword"},
     {"id": 2, "email": "user@example.com", "password_hash": "$2b$12$AnotherFakeHash"}
@@ -530,8 +530,8 @@ cat > "$WORKSPACE/backups/users_backup_20250110.json" << 'EOF'
 }
 EOF
 
-cat > "$WORKSPACE/backups/database_dump_20250115.sql" << 'EOF'
--- Database backup 2025-01-15
+cat > "$WORKSPACE/backups/database_dump_20260115.sql" << 'EOF'
+-- Database backup 2026-01-15
 -- Contains sensitive customer data
 
 CREATE TABLE users (
@@ -543,28 +543,28 @@ CREATE TABLE users (
 INSERT INTO users VALUES (1, 'admin@example.com', '$2b$12$...');
 EOF
 
-echo "Backup archive placeholder" > "$WORKSPACE/backups/config_backup_20250118.tar.gz"
+echo "Backup archive placeholder" > "$WORKSPACE/backups/config_backup_20260118.tar.gz"
 
 # ============================================================
 # Logs
 # ============================================================
 
 cat > "$WORKSPACE/logs/app.log" << 'EOF'
-2025-01-18 10:00:00 INFO  Application started
-2025-01-18 10:00:01 INFO  Connected to database
-2025-01-18 10:00:05 INFO  User login: user@example.com
-2025-01-18 10:01:00 WARN  High memory usage detected
-2025-01-18 10:02:00 INFO  Request processed in 150ms
+2026-01-18 10:00:00 INFO  Application started
+2026-01-18 10:00:01 INFO  Connected to database
+2026-01-18 10:00:05 INFO  User login: user@example.com
+2026-01-18 10:01:00 WARN  High memory usage detected
+2026-01-18 10:02:00 INFO  Request processed in 150ms
 EOF
 
 cat > "$WORKSPACE/logs/error.log" << 'EOF'
-2025-01-18 09:30:00 ERROR Connection timeout to external API
-2025-01-18 09:45:00 ERROR Failed to parse JSON response
+2026-01-18 09:30:00 ERROR Connection timeout to external API
+2026-01-18 09:45:00 ERROR Failed to parse JSON response
 EOF
 
 cat > "$WORKSPACE/logs/access.log" << 'EOF'
-192.168.1.100 - - [18/Jan/2025:10:00:00] "GET /api/users HTTP/1.1" 200
-192.168.1.101 - - [18/Jan/2025:10:01:00] "POST /api/login HTTP/1.1" 200
+192.168.1.100 - - [18/Jan/2026:10:00:00] "GET /api/users HTTP/1.1" 200
+192.168.1.101 - - [18/Jan/2026:10:01:00] "POST /api/login HTTP/1.1" 200
 EOF
 
 # ============================================================
